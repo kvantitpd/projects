@@ -39,4 +39,4 @@ export const data = [
         image: "test.jpg",
         year: "2022"
     }
-]
+];

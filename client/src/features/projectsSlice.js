@@ -1,15 +1,19 @@
-import { createAsyncThunk, createSlice } from '@reduxjs/toolkit'
+import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 
-export const getAllProjects = createAsyncThunk("projects", async () => {
+export const getAllProjects = createAsyncThunk("projects", async (args, { rejectWithValue }) => {
     const response = await fetch("https://api.github.com/users");
-    const result = response.json();
-    return result;
-})
+    try {
+        const result = response.json();
+        return result;
+    } catch (error) {
+        return rejectWithValue("Error");
+    }
+});
 
 export const projectsSlice = createSlice({
     name: 'projects',
     initialState: {
-        users: [],
+        user: [],
         loading: false,
         error: null
     },
@@ -19,14 +23,14 @@ export const projectsSlice = createSlice({
         },
         [getAllProjects.fulfilled]: (state, action) => {
             state.loading = false;
-            state.user = action.payload
+            state.user = action.payload;
         },
         [getAllProjects.rejected]: (state, action) => {
             state.loading = false;
             state.error = action.payload;
         },
     }
-})
+});
 
 
-export default projectsSlice.reducer
+export default projectsSlice.reducer;

@@ -1,9 +1,7 @@
-import Home from "@/layouts/Home"
+import Home from "@/layouts/Home";
 
 const App = () => {
-  return (
-    <Home />
-  )
-}
+  return <Home />;
+};
 
-export default App
+export default App;
